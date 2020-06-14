@@ -51,11 +51,12 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = useCallback(
     async ({ email, password }) => {
-      obterToken({ variables: { username: email, password } })
+      await obterToken({ variables: { username: email, password } })
         .then(async ({ data }) => {
+          setToken({ token: data.obterToken.token });
           setSigned(true);
-          setToken(data.obterToken.token);
-          await AsyncStorage.setItem('@CasaNova:token', token);
+          await AsyncStorage.setItem('@CasaNova:token', data.obterToken.token);
+          return;
         })
         .catch((err) => {
           if (err) {
@@ -64,7 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
         });
     },
 
-    [obterToken, token],
+    [obterToken],
   );
 
   const signOut = useCallback(async () => {
