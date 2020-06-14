@@ -74,7 +74,7 @@ const ConfirmLoan: React.FC = () => {
       </ScrollView>
       <FloatingView>
         <ConfirmLoanButton
-          onPress={() => navigation.navigate('SuccessSplashScreen')}
+          onPress={() => navigation.navigate('ShadedSuccessSplashScreen')}
         >
           <ConfirmLoanButtonText>Confirmar solicitação</ConfirmLoanButtonText>
         </ConfirmLoanButton>
