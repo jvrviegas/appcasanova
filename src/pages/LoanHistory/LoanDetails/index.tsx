@@ -1,12 +1,16 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { useMemo } from 'react';
+import { ScrollView, View, ActivityIndicator, Text } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+
+import { useQuery } from '@apollo/react-hooks';
+import { LOAN_DETAILS } from '../../../services/gqlqueries';
+import formatLoan from '../../../utils/formatLoan';
 
 import {
   Container,
   Title,
-  LoanDetails,
+  LoanInfo,
   CardDetails,
   Label,
   Value,
@@ -16,58 +20,98 @@ import {
   ActionButton,
 } from './styles';
 
-const ConfirmLoan: React.FC = () => {
-  return (
-    <>
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        style={{ backgroundColor: '#f3903d' }}
+const LoanDetails: React.FC = ({ route }: any) => {
+  const { id } = route.params;
+
+  const { data, loading, error } = useQuery(LOAN_DETAILS, {
+    variables: { id },
+  });
+
+  const formattedLoan = useMemo(() => {
+    if (data) {
+      return formatLoan(data.solicitacaoEmprestimo);
+    }
+  }, [data]);
+
+  if (error) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#fff',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        <Container>
-          <Title>Detalhes do empréstimo</Title>
+        <Text>{error.message}</Text>
+      </View>
+    );
+  } else {
+    return (
+      <>
+        {loading ? (
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: '#f3903d',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <ActivityIndicator size="large" color="#fff" />
+          </View>
+        ) : (
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            style={{ backgroundColor: '#f3903d' }}
+          >
+            <Container>
+              <Title>Detalhes do empréstimo</Title>
 
-          <LoanDetails>
-            <Label>Data</Label>
-            <Value>10/11/2019</Value>
-            <Label>Valor do empréstimo</Label>
-            <Value>R$ 500,00</Value>
-            <Label>Total a ser pago</Label>
-            <Value>R$ 750,00</Value>
-            <Label>Total Parcelado</Label>
-            <Value>12x de R$ 62,50</Value>
-          </LoanDetails>
+              <LoanInfo>
+                <Label>Data</Label>
+                <Value>{formattedLoan?.date}</Value>
+                <Label>Valor do empréstimo</Label>
+                <Value>{formattedLoan?.requestedAmount}</Value>
+                <Label>Total a ser pago</Label>
+                <Value>{formattedLoan?.totalDue}</Value>
+                <Label>Total Parcelado</Label>
+                <Value>{`${formattedLoan?.installments}x de ${formattedLoan?.installmentValue}`}</Value>
+              </LoanInfo>
 
-          <CardDetails>
-            <Label>Titular</Label>
-            <Value>Maria Santos</Value>
-            <Label>CPF/CNPJ</Label>
-            <Value>123456789-12</Value>
-            <Label>Número do cartão</Label>
-            <Value>1234 5555 6666 6789</Value>
-            <ValidInfo>
-              <ValidInfoTexts>
-                <Label>Validade</Label>
-                <Value>10/26</Value>
-              </ValidInfoTexts>
-              <ValidInfoTexts>
-                <Label>CVV</Label>
-                <Value>123</Value>
-              </ValidInfoTexts>
-            </ValidInfo>
-          </CardDetails>
+              <CardDetails>
+                <Label>Titular</Label>
+                <Value>{formattedLoan?.client.name}</Value>
+                <Label>CPF/CNPJ</Label>
+                <Value>{formattedLoan?.client.cpf}</Value>
+                <Label>Número do cartão</Label>
+                <Value>1234 5555 6666 6789</Value>
+                <ValidInfo>
+                  <ValidInfoTexts>
+                    <Label>Validade</Label>
+                    <Value>10/26</Value>
+                  </ValidInfoTexts>
+                  <ValidInfoTexts>
+                    <Label>CVV</Label>
+                    <Value>123</Value>
+                  </ValidInfoTexts>
+                </ValidInfo>
+              </CardDetails>
 
-          <Actions>
-            <ActionButton>
-              <FeatherIcon name="download" size={36} color="#fff" />
-            </ActionButton>
-            <ActionButton>
-              <FAIcon name="share-alt" size={36} color="#fff" />
-            </ActionButton>
-          </Actions>
-        </Container>
-      </ScrollView>
-    </>
-  );
+              <Actions>
+                <ActionButton>
+                  <FeatherIcon name="download" size={36} color="#fff" />
+                </ActionButton>
+                <ActionButton>
+                  <FAIcon name="share-alt" size={36} color="#fff" />
+                </ActionButton>
+              </Actions>
+            </Container>
+          </ScrollView>
+        )}
+      </>
+    );
+  }
 };
 
-export default ConfirmLoan;
+export default LoanDetails;

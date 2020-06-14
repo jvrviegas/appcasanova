@@ -13,7 +13,7 @@ export const Title = styled.Text`
   color: #fff;
 `;
 
-export const LoanDetails = styled.View`
+export const LoanInfo = styled.View`
   flex: 1;
   background: #fff;
   padding: 30px;
