@@ -8,14 +8,35 @@ export const AUTH_USER = gql`
   }
 `;
 
-export const LOAN_REQUESTS = gql`
-  query {
-    todasSolicitacoesEmprestimoRelay {
+export const LIST_LOANS = gql`
+  query ListLoans($cursor: String) {
+    todasSolicitacoesEmprestimoRelay(first: 20, after: $cursor) {
       edges {
         node {
-          id
+          pk
+          data
+          valorDesejado
         }
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`;
+
+export const LOAN_DETAILS = gql`
+  query loanDetails($id: ID!) {
+    solicitacaoEmprestimo(id: $id) {
+      cliente {
+        nome
+        cpf
+      }
+      valorDesejado
+      data
+      parcelas
+      taxaAplicada
     }
   }
 `;
