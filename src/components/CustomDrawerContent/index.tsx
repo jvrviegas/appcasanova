@@ -18,7 +18,10 @@ const CustomDrawerContent: React.FC = (props: any) => (
       icon={() => <Icon name="menu" size={24} color={'#E89353'} />}
       label=""
       onPress={() => {
-        props.navigation.replace('Home');
+        props.navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+        });
       }}
     />
     <View style={styles.lineStyle} />
