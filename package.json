@@ -28,6 +28,7 @@
     "date-fns": "^2.14.0",
     "graphql": "^15.1.0",
     "immer": "^6.0.9",
+    "intl": "^1.2.5",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-dropdown": "^0.0.6",
