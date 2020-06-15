@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { KeyboardAvoidingView, ScrollView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -29,14 +29,7 @@ const RequestLoan: React.FC = () => {
           <Title>Solicite seu empréstimo</Title>
 
           <LoanValue placeholder="Valor (R$)" />
-          {Platform.OS === 'ios' ? (
-            <DropdownPicker />
-          ) : (
-            <LoanValue
-              keyboardType="numeric"
-              placeholder="Quantidade de parcelas"
-            />
-          )}
+          <DropdownPicker />
 
           <AmountInputs>
             <Label>Total a ser pago (R$)</Label>
