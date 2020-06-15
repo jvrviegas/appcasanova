@@ -27,7 +27,7 @@ _Programas necessários:_
 
 ## :iphone: Iniciando o aplicativo
 
-######Obs: iremos utilizar o Yarn por questões de praticidade
+###### Obs: iremos utilizar o Yarn por questões de praticidade
 
 1. Abra um terminal e clone o repositório utilizando o comando `git clone https://github.com/jvrviegas/appcasanova`
 2. Entre na pasta `cd appcasanova`
