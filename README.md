@@ -30,7 +30,7 @@ _Programas necessários:_
 ###### Obs: iremos utilizar o Yarn por questões de praticidade
 
 1. Abra um terminal e clone o repositório utilizando o comando `git clone https://github.com/jvrviegas/appcasanova`
-2. Entre na pasta `cd appcasanova`
+2. Entre na pasta utilizando `cd appcasanova`
 3. Instale todas as dependências com o comando `yarn`
 4. Para inicializar o aplicativo no iPhone execute o comando: `yarn ios`
 5. Para inicializar o aplicativo no Android execute o comando: `yarn android`
@@ -51,3 +51,5 @@ _Programas necessários:_
 - :us: **Intl** - API de internacionalização do ECMAScript
 - 📄 **ESLint** - Ferramenta de análise de código para padronização e identificação de problemas
 
+## :computer: Demonstração
+<h3 align="center">Em construção ;)</h3>
