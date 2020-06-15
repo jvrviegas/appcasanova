@@ -21,6 +21,7 @@ interface SignInCredentials {
 
 interface AuthContextData {
   signed: boolean;
+  firstLoading: boolean;
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -30,6 +31,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<AuthState>({} as AuthState);
+  const [firstLoading, setFirstLoading] = useState(true);
   const [signed, setSigned] = useState(false);
   const [obterToken, { loading }] = useMutation(AUTH_USER);
 
@@ -41,6 +43,8 @@ const AuthProvider: React.FC = ({ children }) => {
         setSigned(true);
         setToken({ token });
       }
+
+      setFirstLoading(false);
     }
 
     loadStorageData();
@@ -72,7 +76,9 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, loading, signed }}>
+    <AuthContext.Provider
+      value={{ signIn, signOut, firstLoading, loading, signed }}
+    >
       {children}
     </AuthContext.Provider>
   );
