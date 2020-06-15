@@ -17,7 +17,7 @@ const CreditCardForm: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate('Home');
+      navigation.navigate('SignIn');
     }, 3000);
   }, [navigation]);
 
