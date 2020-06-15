@@ -30,9 +30,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<AuthState>({} as AuthState);
-  const [loading, setLoading] = useState(true);
   const [signed, setSigned] = useState(false);
-  const [obterToken, { data, error }] = useMutation(AUTH_USER);
+  const [obterToken, { loading }] = useMutation(AUTH_USER);
 
   useEffect(() => {
     async function loadStorageData(): Promise<void> {
@@ -42,8 +41,6 @@ const AuthProvider: React.FC = ({ children }) => {
         setSigned(true);
         setToken({ token });
       }
-
-      setLoading(false);
     }
 
     loadStorageData();
@@ -59,8 +56,8 @@ const AuthProvider: React.FC = ({ children }) => {
           return;
         })
         .catch((err) => {
-          if (err) {
-            return new Error('Credenciais inválidas');
+          if (err.graphQLErrors[0].message) {
+            throw new Error('Credenciais de acesso inválidas');
           }
         });
     },
