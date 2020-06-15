@@ -1,9 +1,9 @@
 
 <h1 align="center">
-    <img alt="TodoList" src=".github/logo.png" width="200px" />
-	Casa Nova
+    <img alt="CasaNova" src=".github/logo.png" width="150px" />
+	
 </h1>
-
+<h1 align="center">Casa Nova</h1>
 
 # Sobre o desafio
 
