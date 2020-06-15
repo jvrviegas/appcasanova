@@ -7,9 +7,9 @@ import AppRoutes from './app.routes';
 import { useAuth } from '../hooks/auth';
 
 const Routes: React.FC = () => {
-  const { signed, loading } = useAuth();
+  const { signed, firstLoading } = useAuth();
 
-  if (loading) {
+  if (firstLoading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color="#fff" />
