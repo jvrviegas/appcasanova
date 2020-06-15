@@ -82,7 +82,7 @@ const DropdownPicker: React.FC = () => {
             },
             inputAndroidContainer: {
               borderBottomColor: '#fff',
-              borderBottomWidth: 3,
+              borderBottomWidth: 2,
             },
           }}
           Icon={() => (
