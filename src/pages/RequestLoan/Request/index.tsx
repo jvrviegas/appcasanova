@@ -28,7 +28,7 @@ const RequestLoan: React.FC = () => {
         <Container>
           <Title>Solicite seu empréstimo</Title>
 
-          <LoanValue placeholder="Valor (R$)" />
+          <LoanValue keyboardType="numeric" placeholder="Valor (R$)" />
           <DropdownPicker />
 
           <AmountInputs>
